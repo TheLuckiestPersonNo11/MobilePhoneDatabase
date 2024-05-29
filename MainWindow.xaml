@@ -1,0 +1,87 @@
+﻿<Window x:Class="MainProject27.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainProject27"
+        mc:Ignorable="d"
+        Title="Пошук втраченого мобільного телефону" Height="540" Width="960"
+        WindowState="Maximized" Icon="/Mobile Phone.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="960">
+                <Button Content="Відкрити датасет Excel" Width="150" Height="30" Margin="5,0,5,0"
+                    Command="{Binding OpenFileCommand}"/>
+                <Button Content="Додати" Width="75" Height="30" Margin="0,0,5,0"
+                    Command="{Binding AddCommand}"/>
+                <Button Content="Видалити" Width="75" Height="30" Margin="0,0,5,0"
+                    Command="{Binding DeleteCommand}"/>
+                <Button Content="Зберегти датасет Excel" Width="150" Height="30" Margin="0,0,5,0"
+                    Command="{Binding SaveFileCommand}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="AuthorButton" Content="Про автора проєкту" Width="150" Height="30" Margin="0,0,15,0" Click="AuthorButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid
+                ItemsSource="{Binding FilteredItems}"
+                SelectedItem="{Binding SelectedItem}"
+                CanUserAddRows="False" CanUserDeleteRows="False"
+                AutoGenerateColumns="False">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Ідентифікатор" Binding="{Binding Identifier}" Width="2*"/>
+                    <DataGridTextColumn Header="Відділ поліції" Binding="{Binding Department}" Width="4*"/>
+                    <DataGridTextColumn Header="День" Binding="{Binding Day}" Width="1*"/>
+                    <DataGridTextColumn Header="Місяць" Binding="{Binding Month}" Width="1*"/>
+                    <DataGridTextColumn Header="Рік загублення" Binding="{Binding Year}" Width="2*"/>
+                    <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="2*"/>
+                    <DataGridTextColumn Header="IMEI" Binding="{Binding IMEI}" Width="2*"/>
+                    <DataGridTextColumn Header="Номер SIM" Binding="{Binding SIM}" Width="1*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Column="1">
+                <Label Content="Ідентифікатор"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.Identifier, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Відділ поліції"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.Department, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="День загублення"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.Day, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Місяць загублення"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.Month, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Рік загублення"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.Year, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Модель"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.Model, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="IMEI"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.IMEI, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Номер SIM"/>
+                <TextBox Margin="5,-2,5,15" Text="{Binding SelectedItem.SIM, UpdateSourceTrigger = PropertyChanged }"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Пошук за моделлю телефону:" Margin="0,30,5,0"/>
+                <TextBox x:Name="tbId" Margin="0,0,5,0" Width="177" Height="17" Text ="{Binding FilterText,UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
